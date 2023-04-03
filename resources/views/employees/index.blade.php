@@ -11,9 +11,10 @@
 </head>
   
 <body>
-
+<div style="margin-left:200px;"><h2>Employee List</h2></div>
+<hr/>
 <div class="container">
-  <h2>Employee List</h2>
+
 
   <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Add New Employee</button>
 
@@ -107,5 +108,6 @@
 </script>
   
 </div>
+<hr/>
 </body>
 </html>
