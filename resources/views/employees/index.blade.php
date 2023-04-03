@@ -8,6 +8,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+
 </head>
   
 <body>
@@ -18,7 +21,6 @@
 
   <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Add New Employee</button>
 
-
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">   
       
@@ -28,7 +30,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>         
         </div>
         <div class="modal-body">
-           <form method="post" action="{{ url('employees/create') }}" enctype="multipart/form-data">
+           <form method="post" action="{{ url('employees/create') }}" enctype="multipart/form-data" id="basic-form">
               <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
               <div class="form-group">    
                   <label for="first_name">First Name:</label>
@@ -50,6 +52,7 @@
               <div class="form-group">
                 <label for="technology_id">Technology:</label>
                 <select class="form-control select2" name='technology_id' id='technology_id'>
+                   <option value="" >----- Select ----</option>
                    @foreach($technologiesData as $row)
                       <option value="{{$row->id}}" >{{$row->name}}</option>
                     @endforeach 
@@ -60,51 +63,78 @@
                   <label for="summary">Summery:</label>
                   <textarea class="form-control" rows="4" cols="50" name="summary">
                   </textarea>
+              </div>             
+          
               </div>
-
-              <button type="submit" class="btn btn-primary">Add Product</button>
-          </form>
-        </div>
-         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
+               <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Add Product</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </form>
+        </div>     
     </div>
   </div>
 
-   <table class="table table-striped" style="margin-top:40px;">
-    <thead>
-        <tr>
-          <td>ID</td>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>Date of Birth</td>
-          <td>Mobile</td>
-          <td>Technology</td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($employees as $employee)
-        <tr>
-            <td>{{ $loop->index+1 }}</td>
-            <td>{{ $employee['first_name'] }}</td>
-            <td>{{ $employee['last_name'] }}</td>
-            <td>{{ $employee['date_of_birth'] }}</td>
-            <td>{{ $employee['mobile'] }}</td>
-            <td>{{ $employee['technology_name'] }}</td>           
-        </tr>
-        @endforeach
-    </tbody>
-  </table>
+ <table class="table table-striped" style="margin-top:40px;">
+  <thead>
+      <tr>
+        <td>ID</td>
+        <td>First Name</td>
+        <td>Last Name</td>
+        <td>Date of Birth</td>
+        <td>Mobile</td>
+        <td>Technology</td>
+      </tr>
+  </thead>
+  <tbody>
+      @foreach($employees as $employee)
+      <tr>
+          <td>{{ $loop->index+1 }}</td>
+          <td>{{ $employee['first_name'] }}</td>
+          <td>{{ $employee['last_name'] }}</td>
+          <td>{{ $employee['date_of_birth'] }}</td>
+          <td>{{ $employee['mobile'] }}</td>
+          <td>{{ $employee['technology_name'] }}</td>           
+      </tr>
+      @endforeach
+  </tbody>
+</table>
 
-  <script type="text/javascript">
+<script type="text/javascript">
   $(document).ready(function () {
     $('.date').datepicker({
       format: "dd/mm/yyyy",
       autoclose: true
     });
   });
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#basic-form").validate({
+    rules: {
+      first_name : {
+        required: true,
+        minlength: 3
+      },
+      last_name : {
+        required: true,
+        minlength: 3
+      },
+      date_of_birth: {
+        required: true,
+        date: true
+      },
+      mobile: {
+        required: true,
+        number: true
+      },
+      technology_id: {
+        required: true,
+        number: true
+      }      
+    }
+  });
+});
 </script>
   
 </div>
