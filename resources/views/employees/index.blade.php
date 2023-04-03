@@ -61,7 +61,7 @@
 
               <div class="form-group">    
                   <label for="summary">Summery:</label>
-                  <textarea class="form-control" rows="4" cols="50" name="summary">
+                  <textarea class="form-control" rows="3" cols="50" name="summary">
                   </textarea>
               </div>             
           
@@ -99,7 +99,11 @@
       @endforeach
   </tbody>
 </table>
-
+<style>
+  .error {
+    color: red;
+  }
+</style>
 <script type="text/javascript">
   $(document).ready(function () {
     $('.date').datepicker({
