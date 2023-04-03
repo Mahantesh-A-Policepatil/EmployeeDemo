@@ -25,8 +25,7 @@ class EmployeeController extends Controller
                 "last_name" => isset($item->last_name) ? $item->last_name : "",
                 "date_of_birth" => isset($item->date_of_birth) ? $item->date_of_birth : "",
                 "mobile" => isset($item->mobile) ? $item->mobile : "",
-                "technology_name" => isset($item->technologies->name) ? $item->technologies->name : "",
-                "is_experienced" => isset($item->is_experienced) ? $item->is_experienced : "",               
+                "technology_name" => isset($item->technologies->name) ? $item->technologies->name : ""     
             ];
         }); 
         return view('employees.index', compact('employees', 'technologiesData'));
@@ -60,7 +59,6 @@ class EmployeeController extends Controller
             'date_of_birth' => date('Y-m-d H:i:s' , strtotime($request->get('date_of_birth'))),
             'mobile' => $request->get('mobile'),
             'technology_id' => $request->get('technology_id'),
-            'is_experienced' => $request->get('is_experienced'),
             'summary' => $request->get('summary'),
          ]);
          $employee->save();
