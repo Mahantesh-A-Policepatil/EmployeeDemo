@@ -74,7 +74,7 @@
         </div>     
     </div>
   </div>
-
+<div style="border: 1px solid;">
  <table class="table table-striped" style="margin-top:40px;">
   <thead>
       <tr>
@@ -99,6 +99,7 @@
       @endforeach
   </tbody>
 </table>
+</div>
 <style>
   .error {
     color: red;
